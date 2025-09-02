@@ -1,7 +1,7 @@
 # Virtual Anatomy Documentation
 Documentation created using MkDocs.
 
-[Link](https://jrcz-data-science-lab.github.io/VirtualAnatomy-Documentation/)
+[Link]()
 
 ## Branches 
 - **`main`**: Contains the main content of the documentation.
@@ -17,7 +17,7 @@ Then, run the following command to install MkDocs:
 pip install mkdocs
 ```
 
-We use material theme and so should you ;), install it using following.
+We use material theme, install it using following.
 
 ```bash
 pip install mkdocs-material
