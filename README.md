@@ -1,7 +1,7 @@
-# Virtual Anatomy Documentation
+# SKC Documentation
 Documentation created using MkDocs.
 
-[Link]()
+[Link](https://team02se.github.io/Documentation/branching%20model/)
 
 ## Branches 
 - **`main`**: Contains the main content of the documentation.
