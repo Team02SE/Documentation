@@ -10,7 +10,7 @@ markdown_extensions:
   - md_in_html
 
 
-copyright: <h3><i>2025 Team02 All Rights Reserved</i></h3>
+copyright: <h3><i>2025 Team 2 All Rights Reserved</i></h3>
 
 theme:
   name: material
