@@ -22,6 +22,8 @@ Each external service should use its own dedicated API key. Keys must be scoped 
 
 ## Configuration and management of envrionment variables in Go
 
+[Source](https://nattrio.medium.com/streamlining-go-configuration-and-environment-variables-management-2f5ebacf66e3)
+
 Configuration should be kept separate from code so that the same application can run in multiple environments (development, staging, production) without code changes. This includes database credentials, API keys, ports, and log levels. Keeping configuration in environment variables helps prevent sensitive values from ending up in version control.
 
 **In our current approach:**\
