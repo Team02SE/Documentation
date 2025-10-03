@@ -54,7 +54,7 @@ if apiKey == "" {
 }
 ```
 
-If we were to implement user-specific keys in the future, middleware would be appropriate for enforcement.Middleware in Gorilla Mux sits between the request and the handler, allowing us to perform validation checks before a request reaches the main business logic. For API keys, middleware would extract the key from request headers, validate it, and reject the request if the key is missing or invalid. Centralizing this logic ensures consistent enforcement across all endpoints.
+Middleware in Gorilla Mux sits between the request and the handler, allowing us to perform validation checks before a request reaches the main business logic. For API keys, middleware would extract the key from request headers, validate it, and reject the request if the key is missing or invalid. We already have middleware implemented, which handles the errors. The authentication middleware should call the error middleware, which in term will reject the request if not authenticated. 
 
 **Example of middleware for validating an internal API key:**
 
@@ -67,7 +67,7 @@ func APIKeyMiddleware(next http.Handler) http.Handler {
             return
         }
 
-        validKey := os.Getenv("INTERNAL_API_KEY")
+        validKey := EnvConfig.GetAPIKey()
         if apiKey != validKey {
             http.Error(w, "Invalid API key", http.StatusForbidden)
             return
