@@ -11,9 +11,6 @@ Never embed API keys directly in the application code. Even though our repositor
 **Storing API keys in the application's source tree**\
 API keys should never be stored within the application’s source files. While our repositories are private, keeping keys in code still makes them vulnerable if the repo access is ever compromised. Additionally, committing keys to Git makes it difficult to rotate or revoke them safely. For development, use a .env file (excluded from Git with .gitignore); for production, rely on environment variables or a dedicated secret management solution.
 
-**API keys in frontend code**\
-API keys must never be included in frontend (Svelte) code. Anything shipped to the client (JavaScript, HTML, CSS) is fully visible to end users, even if obfuscated. If the frontend needs access to a third-party service, it should always go through our backend, which securely manages and stores API keys.
-
 **Sending API keys in plain text**\
 All communication involving API keys must happen over HTTPS. Since our backend and future integrations will be deployed with Transport Layer Security, the likelihood of sending keys in plain text is low. However, it’s still important to keep this requirement explicit: API keys should never be logged, sent in query strings, or transmitted without encryption.
 
@@ -34,9 +31,8 @@ In production (Dockerized backend), environment variables should be injected at 
 
 **Best practices for our project**\
 Never hardcode secrets in `Go` code or commit them to the repo.\
-Keep `.env` files for local development only.\
-Use environment variables for production deployments, configured through Docker.\
-Provide defaults (e.g., port = 8080) in code where sensible, but never for secrets.\
+Keep `.env.local` files for local development only.\
+Use environment variables for production deployments, configured through `.env`.\
 If future needs require more complex configuration management, libraries like `caarlos0/env` or `viper` can simplify struct-based configs, but our current setup is sufficient.
 
 ## Future proofing
@@ -52,7 +48,7 @@ Our backend should log API usage without exposing keys. Logs should include the 
 The API keys must always be stored securely and never exposed to the frontend. This means they reside in environment variables that are loaded by the `Go` backend. During development, values can be provided in a `.env` file, ignored by **Git**. In staging and production, environment variables are injected at **container runtime** through the Docker configuration. The application retrieves them at startup using our `EnvConfig.go` file, via Go’s `os.Getenv()`. This ensures that secrets are not hardcoded in the source code or inadvertently included in a frontend build.
 
 ```
-apiKey := os.Getenv("STRIPE_API_KEY")
+apiKey := EnvConfig.GetAPIKey()
 if apiKey == "" {
     log.Fatal("missing STRIPE_API_KEY")
 }
